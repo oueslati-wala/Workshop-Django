@@ -25,6 +25,13 @@ class ComitteeInline(admin.StackedInline):
     model=Committee
     extra=1
 
+@admin.action(description="marquer les soumissions comme payés")
+def mark_as_payed(modeladmin,req,queryset):
+    queryset.update(payed=True)
+@admin.action
+def mark_as_accepted(m,rq,q):
+    q.update(status="accepted")
+
 @admin.register(Conference)
 class AdminConferenceModel(admin.ModelAdmin):
     list_display=("name","theme","location","start_date","end_date","duration")
@@ -47,3 +54,4 @@ class AdminConferenceModel(admin.ModelAdmin):
         return "ras"
     duration.short_description="duration (days)"
     inlines=[SubmissionStackedInline,SubmissionTabularInline,ComitteeInline]
+    actions = [mark_as_payed,mark_as_accepted]

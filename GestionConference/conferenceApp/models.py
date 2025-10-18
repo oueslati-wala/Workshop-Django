@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.exceptions import ValidationError
 class Conference(models.Model):
     conference_id=models.AutoField(primary_key=True)
     name=models.CharField(max_length=255)
@@ -19,7 +19,8 @@ class Conference(models.Model):
     created_at=models.DateTimeField(auto_now_add=True) #auto_now_add une seul fois
     update_at=models.DateTimeField(auto_now=True) #auto_now atoute modifications
     def clean(self):
-        if self.start_date > self.end_date:
-            raise ValueError("la date de debut de la conference doit etre  antérieur à la date fin")
+        if self.start_date and self.end_date:
+            if self.end_date < self.start_date:
+                raise ValidationError("la date de debut de la conference doit etre  antérieur à la date fin")
     def __str__(self):
         return f"le id est: {self.conference_id}"

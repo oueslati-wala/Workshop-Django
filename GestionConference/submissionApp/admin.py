@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Submission
 
+
 @admin.register(Submission)
 class AdminSubmissionModel(admin.ModelAdmin):
     list_display = ("title", "status", "conference", "submission_date", "payed", "keywords","short_abstract")
