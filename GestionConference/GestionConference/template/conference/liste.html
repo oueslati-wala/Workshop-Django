@@ -8,7 +8,11 @@ h1>La liste des conférences</h1>
         <td>{{ c.name }}</td>
         <td>{{c.theme}}</td>
         <td>{{c.start_date}} - {{c.end_date}}</td>
-        <td><a href="{% url 'conference_details' c.pk %}">Détails</a></td>
+        <td>
+            <a href="{% url 'conference_details' c.pk %}">Détails</a>
+            <a href="{% url 'update_conference' c.pk %}">Modifier</a>
+            <a href="{% url 'delete_conference' c.pk %}">Supprimer</a>
+        </td>
     </tr>
     {% endfor %}
 </table>
