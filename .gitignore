@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.log
+.DS_Store
+.env
+
+# Virtual environments
+venv/
+
+# Database
+db.sqlite3
+
+# Media uploads
+media/
+
+# Django static collect (if used)
+staticfiles/
