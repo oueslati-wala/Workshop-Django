@@ -8,7 +8,7 @@ from .forms import ConferenceForm
 
 def list_conferences(request):
     conferences_list=Conference.objects.all()
-    return render(request,"conference\liste.html", {"liste":conferences_list})
+    return render(request,"conference/liste.html", {"liste":conferences_list})
 
 class ConferenceList(ListView):
     model=Conference

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Détail de la soumission {{ submission.submission_id }}</h2>
+<p><strong>Titre:</strong> {{ submission.title }}</p>
+<p><strong>Résumé:</strong> {{ submission.abstract }}</p>
+<p><strong>Mots-clés:</strong> {{ submission.keywords }}</p>
+<p><strong>Statut:</strong> {{ submission.status|title }}</p>
+<p><strong>Conférence:</strong> {{ submission.conference.name }}</p>
+<p><strong>Auteur:</strong> {{ submission.user.username }}</p>
+<p><strong>Date de soumission:</strong> {{ submission.submission_date }}</p>
+<p>
+  {% if submission.paper %}
+    <a href="{{ submission.paper.url }}" download>Télécharger l'article PDF</a>
+    ({{ submission.paper.name }})
+  {% else %}
+    Aucun fichier PDF
+  {% endif %}
+</p>
+<p><a href="{% url 'submission_list' %}">Retour à la liste</a></p>
+{% endblock %}

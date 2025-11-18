@@ -23,7 +23,7 @@ class Session(models.Model):
         max_length=255,
         validators=[
             RegexValidator(
-                regex='^[a-zA-Z0-9\s]+$',
+                regex=r'^[a-zA-Z0-9\s]+$',
                 message="Le nom de la salle ne doit contenir que des lettres, des chiffres et des espaces.",
                 code='invalid_room_name'
             )
@@ -36,7 +36,7 @@ class Session(models.Model):
     conference = models.ForeignKey(Conference, on_delete=models.CASCADE, related_name="sessions")
 
     def __str__(self):
-        return f"{self.title} ({self.conference.title})"
+        return f"{self.title} ({self.conference.name})"
 
     def clean(self):
         super().clean()

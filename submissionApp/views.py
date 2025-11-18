@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
@@ -12,7 +11,6 @@ class SubmissionListView(LoginRequiredMixin, ListView):
     template_name = 'submission/list.html'
 
     def get_queryset(self):
-        # Lister les soumissions de l'utilisateur connecté
         return Submission.objects.select_related('conference', 'user').filter(user=self.request.user)
 
 
@@ -22,7 +20,6 @@ class SubmissionDetailView(LoginRequiredMixin, DetailView):
     template_name = 'submission/detail.html'
 
     def get_queryset(self):
-        # Restreindre l'accès aux soumissions de l'utilisateur
         return Submission.objects.select_related('conference', 'user').filter(user=self.request.user)
 
 
@@ -34,7 +31,6 @@ class SubmissionCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        # statut initial
         if not form.instance.status:
             form.instance.status = 'submitted'
         return super().form_valid(form)
@@ -47,11 +43,9 @@ class SubmissionUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('submission_list')
 
     def get_queryset(self):
-        # Autoriser la modification uniquement des soumissions de l'utilisateur et non acceptées/rejetées
         return Submission.objects.filter(user=self.request.user, status__in=['submitted', 'under review'])
 
     def dispatch(self, request, *args, **kwargs):
-        # Sécurité supplémentaire
         submission = None
         try:
             submission = Submission.objects.get(pk=kwargs.get('pk'))

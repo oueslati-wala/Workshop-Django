@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Modifier la soumission {{ object.submission_id }}</h2>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Mettre à jour</button>
+  <p><a href="{% url 'submission_list' %}">Retour à la liste</a></p>
+</form>
+{% endblock %}

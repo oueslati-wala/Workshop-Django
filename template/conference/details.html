@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Détails conférence</h2>
+<p><strong>Nom:</strong> {{ conference.name }}</p>
+<p><strong>Thème:</strong> {{ conference.theme }}</p>
+<p><strong>Lieu:</strong> {{ conference.location }}</p>
+<p><strong>Description:</strong> {{ conference.descripption }}</p>
+<p><strong>Dates:</strong> {{ conference.start_date }} → {{ conference.end_date }}</p>
+{% if request.user.is_authenticated and request.user.role != 'participant' %}
+  <a href="{% url 'update_conference' conference.pk %}">Modifier</a>
+  <a href="{% url 'delete_conference' conference.pk %}">Supprimer</a>
+{% endif %}
+{% endblock %}

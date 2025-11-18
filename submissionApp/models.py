@@ -77,4 +77,5 @@ class Submission(models.Model):
             unique_id = uuid.uuid4().hex[:8].upper()
             self.submission_id = f"SUB-{unique_id}"
             
+        # Appeler la méthode parente avant la validation
         super().save(*args, **kwargs)

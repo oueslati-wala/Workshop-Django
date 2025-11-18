@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Liste des conférences</h2>
+<ul>
+  {% for c in liste %}
+    <li>
+      <a href="{% url 'conference_details' c.pk %}">{{ c.name }}</a>
+    </li>
+  {% empty %}
+    <li>Aucune conférence</li>
+  {% endfor %}
+</ul>
+{% if request.user.is_authenticated and request.user.role != 'participant' %}
+  <p><a href="{% url 'conference_add' %}">Créer une conférence</a></p>
+{% endif %}
+{% endblock %}
